@@ -55,31 +55,31 @@ int SolveQuadraticEquation (double first_coef, double second_coef, double third_
         return SolveLinearEquation (second_coef, third_coef, ptr_first_root);
     }
 
-  else
-  {
-      double discriminant = second_coef * second_coef - 4 * first_coef * third_coef;
+    else
+    {
+        double discriminant = second_coef * second_coef - 4 * first_coef * third_coef;
 
-      if (discriminant > 0)
-      {
-          *ptr_first_root  = (-second_coef - sqrt(discriminant)) / (2 * first_coef);
-          *ptr_second_root = (-second_coef + sqrt(discriminant)) / (2 * first_coef);
+        if (discriminant > 0)
+        {
+            *ptr_first_root  = (-second_coef - sqrt(discriminant)) / (2 * first_coef);
+            *ptr_second_root = (-second_coef + sqrt(discriminant)) / (2 * first_coef);
 
-          return 2;
-      }
+            return 2;
+        }
 
-      if (IsCloseTo0 (fabs (discriminant)))
-      {
-          *ptr_first_root = -second_coef / (2 * first_coef);
+        if (IsCloseTo0 (fabs (discriminant)))
+        {
+            *ptr_first_root = -second_coef / (2 * first_coef);
 
-          return 1;
-      }
+            return 1;
+        }
 
-      else
-      {
-          return 0;
-      }
+        else
+        {
+            return 0;
+        }
 
-  }
+    }
 }
 
 int SolveLinearEquation (double second_coef, double third_coef, double *ptr_first_root)
