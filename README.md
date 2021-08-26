@@ -10,7 +10,7 @@ Solves Ax^2 + Bx + C = 0
 Working with physical or mathematical models, we often need to deal with quadratic equations.
 It seemed to me that there should be a programme solving them as using it is more efficient and convenient rather than calculating by hands. 
 Now you can get right answer without any troubles.
-#### How to work with
+### How to work with
 ***
 This programme accepts three variables:  A, B and C from Ax^2 + Bx + C = 0, so you should enter A, B and C.
 Just follow the instructions appearing on the screen and you will benefit.
