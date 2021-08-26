@@ -71,26 +71,27 @@ int EquationSolver(double first_coef, double second_coef, double third_coef, dou
 
   else
   {
-    double discriminant = second_coef * second_coef - 4 * first_coef * third_coef;
+      double discriminant = second_coef * second_coef - 4 * first_coef * third_coef;
 
-    if (discriminant > 0)
-    {
-      *ptr_first_root = (-second_coef - sqrt(discriminant)) / 2 / first_coef;
-      *ptr_second_root = (-second_coef + sqrt(discriminant)) / 2 / first_coef;
+      if (discriminant > 0)
+      {
+          *ptr_first_root = (-second_coef - sqrt(discriminant)) / 2 / first_coef;
+          *ptr_second_root = (-second_coef + sqrt(discriminant)) / 2 / first_coef;
 
-      return 2;
-    }
+          return 2;
+      }
 
-    if (discriminant == 0)
-    {
-        *ptr_first_root = -second_coef / 2 / first_coef;
+      if (discriminant == 0)
+      {
+          *ptr_first_root = -second_coef / 2 / first_coef;
 
-        return 1;
-    }
-    else
-    {
-      return 0;
-    }
+          return 1;
+      }
+
+      else
+      {
+          return 0;
+      }
   }
 }
 void GetAnswer(double first_root, double second_root, int num_roots)
