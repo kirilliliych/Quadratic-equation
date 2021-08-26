@@ -5,11 +5,11 @@
 const int INFINITY_ROOTS = -1;                                                                                                                 // signals about infinite number of roots
 const double PRECISION = 0.001;                                                                                                                // a precision of comparison double to 0
 
-void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef);
+void ReadCoeffs            (double *first_coef, double *second_coef, double *third_coef);
 int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
-int SolveLinearEquation (double second_coef, double third_coef, double *ptr_first_root);
-bool IsCloseTo0 (double val);
-void PrintAnswer (double first_root, double second_root, int num_roots);
+int SolveLinearEquation    (double second_coef, double third_coef, double *ptr_first_root);
+bool IsCloseTo0            (double val);
+void PrintAnswer           (double first_root, double second_root, int num_roots);
 
 int main()
 {
@@ -34,6 +34,10 @@ int main()
 
 void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
 {
+    assert (first_coef  != nullptr);
+    assert (second_coef != nullptr);
+    assert (third_coef  != nullptr);
+
     printf ("Enter coefficient A in Ax^2+Bx+C formula: ");
     scanf ("%lg", first_coef);
     printf ("Enter coefficient B in Ax^2+Bx+C formula: ");
@@ -61,8 +65,9 @@ int SolveQuadraticEquation (double first_coef, double second_coef, double third_
 
         if (discriminant > 0)
         {
-            *ptr_first_root  = (-second_coef - sqrt(discriminant)) / (2 * first_coef);
-            *ptr_second_root = (-second_coef + sqrt(discriminant)) / (2 * first_coef);
+            double discriminant_square_root = sqrt (discriminant);
+            *ptr_first_root  = (-second_coef - discriminant_square_root) / (2 * first_coef);
+            *ptr_second_root = (-second_coef + discriminant_square_root) / (2 * first_coef);
 
             return 2;
         }
@@ -111,6 +116,7 @@ int SolveLinearEquation (double second_coef, double third_coef, double *ptr_firs
 
 bool IsCloseTo0 (double val)
 {
+    assert(isfinite (val));
 
     return fabs(val) < PRECISION;
 }
@@ -124,23 +130,23 @@ void PrintAnswer (double first_root, double second_root, int num_roots)
     switch (num_roots)
     {
         case 0:
-        printf("No solutions");
-        break;
+            printf("No solutions\n");
+            break;
 
         case 1:
-        printf("%s %lg","The only root: ", first_root);
-        break;
+            printf("%s %lg %s", "The only root: ", first_root, "\n");
+            break;
 
         case 2:
-        printf("%s %lg %s %lg", "First root: ", first_root, "Second root: ", second_root);
-        break;
+            printf("%s %lg %s %lg", "First root: ", first_root, "Second root: ", second_root, "\n");
+            break;
 
         case INFINITY_ROOTS:
-        printf("Infinity number of roots");
-        break;
+            printf("Infinity number of roots\n");
+            break;
 
         default:
-        printf("Error, unknown value of num_roots");
-        break;
+            printf("Error, unknown value of num_roots: ", num_roots);
+            break;
     }
 }
