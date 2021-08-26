@@ -6,7 +6,7 @@ const int INFINITY_ROOTS = -1;                                                  
 const double PRECISION = 0.001;                                                                                                                // a precision of comparison double to 0
 
 void ReadCoeffs             (double *first_coef, double *second_coef, double *third_coef);
-void RepeatInput            (double *coefficient);
+void CorrectInput           (double *coefficient);
 int  SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
 int  SolveLinearEquation    (double second_coef, double third_coef, double *ptr_first_root);
 bool IsCloseTo0             (double val);
@@ -42,20 +42,22 @@ void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
 
     printf ("Enter coefficient A in Ax^2+Bx+C formula: ");
 
-    RepeatInput (first_coef);
+    CorrectInput (first_coef);
 
     printf ("Enter coefficient B in Ax^2+Bx+C formula: ");
 
-    RepeatInput (second_coef);
+    CorrectInput (second_coef);
 
     printf ("Enter coefficient C in Ax^2+Bx+C formula: ");
 
-    RepeatInput (third_coef);
+    CorrectInput (third_coef);
 
 }
 
-void RepeatInput (double *coefficient)
+void CorrectInput (double *coefficient)
 {
+    assert (coefficient != nullptr);
+
     while (scanf ("%lg", coefficient) == 0)
     {
         printf ("Invalid input. Please, enter a number!\n");
