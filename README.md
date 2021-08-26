@@ -1,8 +1,9 @@
 # Quadratic-equation
 
 ### Features
-Solves ax^2 + bx + c = 0 
-
-
+Solves Ax^2 + Bx + C = 0 
+***
+-This programme accepts three variables:  
+A, B and C from Ax^2 + Bx + C = 0.
 
 
