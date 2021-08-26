@@ -1,15 +1,17 @@
-#include <stdio.h>
-#include <math.h>                                              //  readme markdown doxygen
 #include <assert.h>
+#include <math.h>                                              //  readme markdown doxygen
+#include <stdio.h>
 
 const int INFINITY_ROOTS = -1;                                                                                                                 // signals about infinite number of roots
 const double PRECISION = 0.001;                                                                                                                // a precision of comparison double to 0
 
 void ReadCoeffs             (double *first_coef, double *second_coef, double *third_coef);
+void RepeatInput            ();
 int  SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
 int  SolveLinearEquation    (double second_coef, double third_coef, double *ptr_first_root);
 bool IsCloseTo0             (double val);
 void PrintAnswer            (double first_root, double second_root, int num_roots);
+
 
 int main()
 {
@@ -42,40 +44,29 @@ void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
 
     while (scanf ("%lg", first_coef) == 0)
     {
-
-        printf ("Invalid input. Please, enter a number!\n");
-
-        while (getchar () != '\n')
-        {
-            continue;
-        }
+        RepeatInput ();
     }
 
     printf ("Enter coefficient B in Ax^2+Bx+C formula: ");
 
     while (scanf ("%lg", second_coef) == 0)
     {
-
-        printf ("Invalid input. Please, enter a number!\n");
-
-        while (getchar () != '\n')
-        {
-            continue;
-        }
+        RepeatInput ();
     }
 
     printf ("Enter coefficient C in Ax^2+Bx+C formula: ");
 
     while (scanf ("%lg", third_coef) == 0)
     {
-
-        printf ("Invalid input. Please, enter a number!\n");
-
-        while (getchar () != '\n')
-        {
-            continue;
-        }
+        RepeatInput ();
     }
+}
+
+void RepeatInput ()
+{
+    printf ("Invalid input. Please, enter a number!\n");
+
+        while (getchar () != '\n');
 }
 
 int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root)
