@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>                                              //  readme markdown doxygen
 #include <assert.h>
 
@@ -151,7 +150,7 @@ bool IsCloseTo0 (double val)
 {
     assert(isfinite (val));
 
-    return fabs(val) < PRECISION;
+    return fabs (val) < PRECISION;
 }
 
 void PrintAnswer (double first_root, double second_root, int num_roots)
