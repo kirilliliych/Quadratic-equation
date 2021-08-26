@@ -2,6 +2,9 @@
 #include <math.h>
 #include <stdio.h>
 
+#define TEST_OK(number) printf ("Test %d passed\n", number);
+#define TEST_FAILED(number, line, inp, outp, outp_expected) printf ("Test %d failed (line %d)\nInput: %d\nOutput: %d\nOutput expected: %d\n\n", number, __LINE__, inp, outp, outp_expected);
+
 const int INFINITY_ROOTS = -1;                                                                                                                 // signals about infinite number of roots
 const double PRECISION = 0.001;                                                                                                                // a precision of comparison double to 0
 
@@ -9,6 +12,7 @@ void ReadCoeffs             (double *first_coef, double *second_coef, double *th
 void CorrectInput           (double *coefficient);
 int  SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
 int  SolveLinearEquation    (double second_coef, double third_coef, double *ptr_first_root);
+void TestIsCloseTo0         ();
 bool IsCloseTo0             (double val);
 void PrintAnswer            (double first_root, double second_root, int num_roots);
 
@@ -21,6 +25,8 @@ int main()
     double a = 0;
     double b = 0;
     double c = 0;
+
+    TestIsCloseTo0();
 
     ReadCoeffs (&a, &b, &c);
 
@@ -131,6 +137,37 @@ int SolveLinearEquation (double second_coef, double third_coef, double *ptr_firs
         *ptr_first_root = -third_coef / second_coef;
 
         return 1;
+    }
+}
+
+void TestIsCloseTo0 ()
+{
+    printf ("Testing function IsCloseTo0:\n\n");
+
+    int number = 1;
+    double test_1 = 0.000999;
+    double test_2 = 0.001;
+
+    if (IsCloseTo0 (test_1) == true)
+    {
+        TEST_OK(number);
+    }
+
+    else
+    {
+        TEST_FAILED(number, __LINE__, test_1, IsCloseTo0 (test_1), true);
+    }
+
+    number++;
+
+    if (IsCloseTo0 (test_2) == false)
+    {
+       TEST_OK(number);
+    }
+
+    else
+    {
+        TEST_FAILED(number, __LINE__, test_2, IsCloseTo0 (test_2), false);
     }
 }
 
