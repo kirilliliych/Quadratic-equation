@@ -1,15 +1,16 @@
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
+#include <math.h>                                              //  readme markdown doxygen
 #include <assert.h>
 
 const int INFINITY_ROOTS = -1;                                                                                                                 // signals about infinite number of roots
 const double PRECISION = 0.001;                                                                                                                // a precision of comparison double to 0
 
-void ReadCoeffs            (double *first_coef, double *second_coef, double *third_coef);
-int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
-int SolveLinearEquation    (double second_coef, double third_coef, double *ptr_first_root);
-bool IsCloseTo0            (double val);
-void PrintAnswer           (double first_root, double second_root, int num_roots);
+void ReadCoeffs             (double *first_coef, double *second_coef, double *third_coef);
+int  SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
+int  SolveLinearEquation    (double second_coef, double third_coef, double *ptr_first_root);
+bool IsCloseTo0             (double val);
+void PrintAnswer            (double first_root, double second_root, int num_roots);
 
 int main()
 {
@@ -39,11 +40,43 @@ void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
     assert (third_coef  != nullptr);
 
     printf ("Enter coefficient A in Ax^2+Bx+C formula: ");
-    scanf ("%lg", first_coef);
+
+    while (scanf ("%lg", first_coef) == 0)
+    {
+
+        printf ("Invalid input. Please, enter a number!\n");
+
+        while (getchar () != '\n')
+        {
+            continue;
+        }
+    }
+
     printf ("Enter coefficient B in Ax^2+Bx+C formula: ");
-    scanf ("%lg", second_coef);
+
+    while (scanf ("%lg", second_coef) == 0)
+    {
+
+        printf ("Invalid input. Please, enter a number!\n");
+
+        while (getchar () != '\n')
+        {
+            continue;
+        }
+    }
+
     printf ("Enter coefficient C in Ax^2+Bx+C formula: ");
-    scanf ("%lg", third_coef);
+
+    while (scanf ("%lg", third_coef) == 0)
+    {
+
+        printf ("Invalid input. Please, enter a number!\n");
+
+        while (getchar () != '\n')
+        {
+            continue;
+        }
+    }
 }
 
 int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root)
@@ -130,23 +163,23 @@ void PrintAnswer (double first_root, double second_root, int num_roots)
     switch (num_roots)
     {
         case 0:
-            printf("No solutions\n");
+            printf ("No solutions\n");
             break;
 
         case 1:
-            printf("%s %lg %s", "The only root: ", first_root, "\n");
+            printf ("%s %lg %s", "The only root: ", first_root, "\n");
             break;
 
         case 2:
-            printf("%s %lg %s %lg", "First root: ", first_root, "Second root: ", second_root, "\n");
+            printf ("%s %lg %s %lg %s", "First root: ", first_root, "Second root: ", second_root, "\n");
             break;
 
         case INFINITY_ROOTS:
-            printf("Infinity number of roots\n");
+            printf ("Infinity number of roots\n");
             break;
 
         default:
-            printf("Error, unknown value of num_roots: ", num_roots);
+            printf ("%s %d", "Error, unknown value of num_roots: ", num_roots);
             break;
     }
 }
