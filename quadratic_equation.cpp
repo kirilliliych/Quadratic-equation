@@ -8,13 +8,14 @@ const double PRECISION = 0.001;                                                 
 void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef);
 int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
 int SolveLinearEquation (double second_coef, double third_coef, double *ptr_first_root);
-bool CloseTo0 (double val);
+bool IsCloseTo0 (double val);
 void PrintAnswer (double first_root, double second_root, int num_roots);
 
 int main()
 {
-    printf("%s \n","///// QuadraticEquationSolver /////");
-    printf("\t %s \n \n","(c) kirilliliych, 2021");
+    printf ("\t\t\t///// QuadraticEquationSolver /////\n");
+    printf ("\t\t\t\t(c) kirilliliych, 2021\n\n");
+
     double a = 0;
     double b = 0;
     double c = 0;
@@ -31,26 +32,27 @@ int main()
     return 0;
 }
 
-void ReadCoeffs(double *first_coef, double *second_coef, double *third_coef)
+void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
 {
-    printf("Enter coefficient A in Ax^2+Bx+C formula: ");
-    scanf("%lg", first_coef);
-    printf("Enter coefficient B in Ax^2+Bx+C formula: ");
-    scanf("%lg", second_coef);
-    printf("Enter coefficient C in Ax^2+Bx+C formula: ");
-    scanf("%lg", third_coef);
+    printf ("Enter coefficient A in Ax^2+Bx+C formula: ");
+    scanf ("%lg", first_coef);
+    printf ("Enter coefficient B in Ax^2+Bx+C formula: ");
+    scanf ("%lg", second_coef);
+    printf ("Enter coefficient C in Ax^2+Bx+C formula: ");
+    scanf ("%lg", third_coef);
 }
 
 int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root)
 {
-    assert(isfinite(first_coef));
-    assert(isfinite(second_coef));
-    assert(isfinite(third_coef));
+    assert (isfinite (first_coef));
+    assert (isfinite (second_coef));
+    assert (isfinite (third_coef));
+    assert (ptr_first_root  != nullptr);
+    assert (ptr_second_root != nullptr);
 
-    if (CloseTo0(fabs(first_coef)))
+    if (IsCloseTo0 (fabs (first_coef)))
     {
-        int n_linear_roots = SolveLinearEquation (second_coef, third_coef, ptr_first_root);
-        return (n_linear_roots < 0) ? INFINITY_ROOTS : (n_linear_roots > 0) ? 1 : 0;
+        return SolveLinearEquation (second_coef, third_coef, ptr_first_root);
     }
 
   else
@@ -59,13 +61,13 @@ int SolveQuadraticEquation (double first_coef, double second_coef, double third_
 
       if (discriminant > 0)
       {
-          *ptr_first_root = (-second_coef - sqrt(discriminant)) / (2 * first_coef);
+          *ptr_first_root  = (-second_coef - sqrt(discriminant)) / (2 * first_coef);
           *ptr_second_root = (-second_coef + sqrt(discriminant)) / (2 * first_coef);
 
           return 2;
       }
 
-      if (CloseTo0(fabs(discriminant)))
+      if (IsCloseTo0 (fabs (discriminant)))
       {
           *ptr_first_root = -second_coef / (2 * first_coef);
 
@@ -82,12 +84,13 @@ int SolveQuadraticEquation (double first_coef, double second_coef, double third_
 
 int SolveLinearEquation (double second_coef, double third_coef, double *ptr_first_root)
 {
-    assert(isfinite(second_coef));
-    assert(isfinite(third_coef));
+    assert (isfinite (second_coef));
+    assert (isfinite (third_coef));
+    assert (ptr_first_root != nullptr);
 
-    if (CloseTo0(second_coef))
+    if (IsCloseTo0 (second_coef))
     {
-        if (CloseTo0(third_coef))
+        if (IsCloseTo0 (third_coef))
         {
             return INFINITY_ROOTS;
         }
@@ -106,7 +109,7 @@ int SolveLinearEquation (double second_coef, double third_coef, double *ptr_firs
     }
 }
 
-bool CloseTo0 (double val)
+bool IsCloseTo0 (double val)
 {
 
     return fabs(val) < PRECISION;
@@ -114,8 +117,9 @@ bool CloseTo0 (double val)
 
 void PrintAnswer (double first_root, double second_root, int num_roots)
 {
-    assert(isfinite(first_root));
-    assert(isfinite(second_root));
+    assert( isfinite (first_root));
+    assert( isfinite (second_root));
+    assert( isfinite (num_roots));
 
     switch (num_roots)
     {
