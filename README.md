@@ -1,18 +1,41 @@
 # Quadratic-equation
 
-### Features
+The programme is free-to-use for all kinds of developers.
+### What does the project do
+***
 Solves Ax^2 + Bx + C = 0 
+
+### Why is the project useful
 ***
-### What it does 
-This programme accepts three variables:  
-A, B and C from Ax^2 + Bx + C = 0.
+Working with physical or mathematical models, we often need to deal with quadratic equations.
+It seemed to me that there should be a programme solving them as using it is more efficient and convenient rather than calculating by hands. 
+Now you can get right answer without any troubles.
+#### How to work with
+***
+This programme accepts three variables:  A, B and C from Ax^2 + Bx + C = 0, so you should enter A, B and C.
+Just follow the instructions appearing on the screen and you will benefit.
 **Arguments' type is double! Do not try to initialize them with symbol, string, etc. It will not work!**
-Then it solves the equation, telling whether it has no soultions, one, two or infinity of them and shows the roots if there are any.
+If you are mistaken, a message will remember you to enter number.
+
+Programme shows how many roots does the equation have and shows them if there are any / not an infinity of them.
+
+### Brief structure
 ***
-### Functions
 1. _void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)_ - accepts A, B and C.
-2. _void RepeatInput (double *coefficient)_ - repeats input if there is a mistake.
+2. _void CorrectInput (double *coefficient)_ - repeats input if there is a mistake.
 3. _int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root)_ - solves the quadratic equation __(calls SolveLinearEquation if needs)__, returns number of roots.
 4. _int SolveLinearEquation (double second_coef, double third_coef, double *ptr_first_root)_ - solves the linear equation, returns number of roots. 
 5. _bool IsCloseTo0 (double val)_ - decides whether double variable is equal to 0 with 0.001 precision.
 6. _void PrintAnswer (double first_root, double second_root, int num_roots)_ - shows an answer.     
+
+### How can I help
+***
+I explicitly welcome any outside contributors. Use my mail: _ilichev.kv@phystech.edu_.
+__A strong request__:
+* Ask before making significant changes
+* Do not break the codestyle
+* Do not destruct previous functionality with additions
+
+### Where to ask questions
+***
+Use the mail mentioned earlier.
