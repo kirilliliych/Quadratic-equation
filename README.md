@@ -13,7 +13,7 @@ Now you can get right answer without any troubles.
 ### How to work with
 ***
 This programme accepts three variables:  A, B and C from Ax^2 + Bx + C = 0, so you should enter A, B and C.
-Just follow the instructions appearing on the screen and you will benefit.
+Just follow the instructions appearing on the screen and you will benefit.  
 **Arguments' type is double! Do not try to initialize them with symbol, string, etc. It will not work!**
 If you are mistaken, a message will remember you to enter number.
 
