@@ -1,12 +1,12 @@
 #include <assert.h>
-#include <math.h>                                              //  readme markdown doxygen
+#include <math.h>
 #include <stdio.h>
 
 const int INFINITY_ROOTS = -1;                                                                                                                 // signals about infinite number of roots
 const double PRECISION = 0.001;                                                                                                                // a precision of comparison double to 0
 
 void ReadCoeffs             (double *first_coef, double *second_coef, double *third_coef);
-void RepeatInput            ();
+void RepeatInput            (double *coefficient);
 int  SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
 int  SolveLinearEquation    (double second_coef, double third_coef, double *ptr_first_root);
 bool IsCloseTo0             (double val);
@@ -42,31 +42,26 @@ void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
 
     printf ("Enter coefficient A in Ax^2+Bx+C formula: ");
 
-    while (scanf ("%lg", first_coef) == 0)
-    {
-        RepeatInput ();
-    }
+    RepeatInput (first_coef);
 
     printf ("Enter coefficient B in Ax^2+Bx+C formula: ");
 
-    while (scanf ("%lg", second_coef) == 0)
-    {
-        RepeatInput ();
-    }
+    RepeatInput (second_coef);
 
     printf ("Enter coefficient C in Ax^2+Bx+C formula: ");
 
-    while (scanf ("%lg", third_coef) == 0)
-    {
-        RepeatInput ();
-    }
+    RepeatInput (third_coef);
+
 }
 
-void RepeatInput ()
+void RepeatInput (double *coefficient)
 {
-    printf ("Invalid input. Please, enter a number!\n");
+    while (scanf ("%lg", coefficient) == 0)
+    {
+        printf ("Invalid input. Please, enter a number!\n");
 
         while (getchar () != '\n');
+    }
 }
 
 int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root)
@@ -139,16 +134,16 @@ int SolveLinearEquation (double second_coef, double third_coef, double *ptr_firs
 
 bool IsCloseTo0 (double val)
 {
-    assert(isfinite (val));
+    assert (isfinite (val));
 
     return fabs (val) < PRECISION;
 }
 
 void PrintAnswer (double first_root, double second_root, int num_roots)
 {
-    assert( isfinite (first_root));
-    assert( isfinite (second_root));
-    assert( isfinite (num_roots));
+    assert (isfinite (first_root));
+    assert (isfinite (second_root));
+    assert (isfinite (num_roots));
 
     switch (num_roots)
     {
