@@ -1,72 +1,56 @@
 #include <stdio.h>
 #include <math.h>
+#include <assert.h>
 
-const int infinity_roots = -1;
+const int INFINITY_ROOTS = -1;                                                                                                                 // signals about infinite number of roots
+const double PRECISION = 0.001;                                                                                                                // a precision of comparison double to 0
 
-void ReadCoeffs(double *first_coef, double *second_coef, double *third_coef);
-int EquationSolver(double first_coef, double second_coef, double third_coef, double *first_root, double *second_root);
-void GetAnswer(double first_root, double second_root, int num_roots);
+void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef);
+int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
+int SolveLinearEquation (double second_coef, double third_coef, double *ptr_first_root);
+bool CloseTo0 (double val);
+void PrintAnswer (double first_root, double second_root, int num_roots);
 
 int main()
 {
+    printf("%s \n","///// QuadraticEquationSolver /////");
+    printf("\t %s \n \n","(c) kirilliliych, 2021");
     double a = 0;
     double b = 0;
     double c = 0;
 
-    ReadCoeffs(&a, &b, &c);
+    ReadCoeffs (&a, &b, &c);
 
     double first_root = 0;
     double second_root = 0;
 
-    int num_roots = EquationSolver(a, b, c, &first_root, &second_root);
+    int num_roots = SolveQuadraticEquation (a, b, c, &first_root, &second_root);
 
-    GetAnswer(first_root, second_root, num_roots);
+    PrintAnswer (first_root, second_root, num_roots);
 
     return 0;
 }
 
 void ReadCoeffs(double *first_coef, double *second_coef, double *third_coef)
 {
-    double a = 0;
-    double b = 0;
-    double c = 0;
-
     printf("Enter coefficient A in Ax^2+Bx+C formula: ");
-    scanf("%lf", &a);
+    scanf("%lg", first_coef);
     printf("Enter coefficient B in Ax^2+Bx+C formula: ");
-    scanf("%lf", &b);
+    scanf("%lg", second_coef);
     printf("Enter coefficient C in Ax^2+Bx+C formula: ");
-    scanf("%lf", &c);
-
-    *first_coef = a;
-    *second_coef = b;
-    *third_coef = c;
+    scanf("%lg", third_coef);
 }
 
-int EquationSolver(double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root)
+int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root)
 {
-    if (first_coef == 0)
+    assert(isfinite(first_coef));
+    assert(isfinite(second_coef));
+    assert(isfinite(third_coef));
+
+    if (CloseTo0(fabs(first_coef)))
     {
-         if (second_coef == 0)
-         {
-             if (third_coef == 0)
-             {
-                 return infinity_roots;
-             }
-
-             else
-             {
-                 return 0;
-             }
-         }
-
-         else
-         {
-             *ptr_first_root = -third_coef / second_coef;
-
-             return 1;
-         }
-
+        int n_linear_roots = SolveLinearEquation (second_coef, third_coef, ptr_first_root);
+        return (n_linear_roots < 0) ? INFINITY_ROOTS : (n_linear_roots > 0) ? 1 : 0;
     }
 
   else
@@ -75,15 +59,15 @@ int EquationSolver(double first_coef, double second_coef, double third_coef, dou
 
       if (discriminant > 0)
       {
-          *ptr_first_root = (-second_coef - sqrt(discriminant)) / 2 / first_coef;
-          *ptr_second_root = (-second_coef + sqrt(discriminant)) / 2 / first_coef;
+          *ptr_first_root = (-second_coef - sqrt(discriminant)) / (2 * first_coef);
+          *ptr_second_root = (-second_coef + sqrt(discriminant)) / (2 * first_coef);
 
           return 2;
       }
 
-      if (discriminant == 0)
+      if (CloseTo0(fabs(discriminant)))
       {
-          *ptr_first_root = -second_coef / 2 / first_coef;
+          *ptr_first_root = -second_coef / (2 * first_coef);
 
           return 1;
       }
@@ -92,10 +76,47 @@ int EquationSolver(double first_coef, double second_coef, double third_coef, dou
       {
           return 0;
       }
+
   }
 }
-void GetAnswer(double first_root, double second_root, int num_roots)
+
+int SolveLinearEquation (double second_coef, double third_coef, double *ptr_first_root)
 {
+    assert(isfinite(second_coef));
+    assert(isfinite(third_coef));
+
+    if (CloseTo0(second_coef))
+    {
+        if (CloseTo0(third_coef))
+        {
+            return INFINITY_ROOTS;
+        }
+
+        else
+        {
+            return 0;
+        }
+    }
+
+    else
+    {
+        *ptr_first_root = -third_coef / second_coef;
+
+        return 1;
+    }
+}
+
+bool CloseTo0 (double val)
+{
+
+    return fabs(val) < PRECISION;
+}
+
+void PrintAnswer (double first_root, double second_root, int num_roots)
+{
+    assert(isfinite(first_root));
+    assert(isfinite(second_root));
+
     switch (num_roots)
     {
         case 0:
@@ -103,15 +124,19 @@ void GetAnswer(double first_root, double second_root, int num_roots)
         break;
 
         case 1:
-        printf("%s %lf","The only root: ", first_root);
+        printf("%s %lg","The only root: ", first_root);
         break;
 
         case 2:
-        printf("%s %lf %s %lf", "First root: ", first_root, "Second root: ", second_root);
+        printf("%s %lg %s %lg", "First root: ", first_root, "Second root: ", second_root);
+        break;
+
+        case INFINITY_ROOTS:
+        printf("Infinity number of roots");
         break;
 
         default:
-        printf("Infinity number of roots");
+        printf("Error, unknown value of num_roots");
         break;
     }
 }
