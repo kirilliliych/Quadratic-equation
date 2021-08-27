@@ -10,8 +10,6 @@ const int ERROR = -2;                                                           
 
 void ReadCoeffs                      (double *first_coef, double *second_coef, double *third_coef);
 
-/*void TestCorrectInput              ();
-void CheckTestCorrectInput           (double test_coef_double, char test_coef_char);*/
 int  CorrectInput                    (double *coefficient, bool if_testing);
 
 void TestSolveQuadraticEquation      ();
@@ -78,47 +76,6 @@ void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
 
 }
 
-/*void TestCorrectInput ()
-{
-    double test_coef_double = 0;
-
-    char test_coef_char = 'a';
-
-    CheckTestCorrectInput (test_coef_double, test_coef_char);
-
-}
-
-void CheckTestCorrectInput (double test_coef_double, char test_coef_char)
-{
-    assert (isfinite (test_coef_double));
-
-    int number = 1;
-
-    bool result_of_test = CorrectInput (&test_coef_double, true);
-    bool right_result = isfinite (test_coef_double);
-
-    if (result_of_test != right_result)
-    {
-        printf ("Test %d failed line (%d)\nInput: %lg\nOutput: %d\nOutput expected: %d", number, __LINE__, test_coef_double, result_of_test, right_result);
-    }
-
-    else
-    {
-        TEST_OK(number);
-    }
-
-    number++;
-
-     result_of_test = CorrectInput (&test_coef_char, true);
-
-     right_result = 0;
-
-     if (result_of_test != right_result)
-     {
-         printf ("Test %d failed line (%d)\nInput: %lg\nOutput: %d\nOutput expected: %d", number, __LINE__, test_coef_double, result_of_test, right_result);
-     }
-}*/
-
 int CorrectInput (double *coefficient, bool if_testing)
 {
     assert (coefficient != nullptr);
@@ -141,6 +98,7 @@ int CorrectInput (double *coefficient, bool if_testing)
 void TestSolveQuadraticEquation ()
 {
     printf ("Testing function SolveQuadraticEquation\n\n");
+
     double test_first_coef  = 1;
     double test_second_coef = 2;
     double test_third_coef  = 2;
@@ -478,6 +436,7 @@ void CheckTestPrintAnswer (int number, int num_roots_test, double first_root_tes
     assert (isfinite (num_roots_test));
     assert (isfinite (first_root_test));
     assert (isfinite (second_root_test));
+
     int result_of_test = PrintAnswer (num_roots_test, first_root_test, second_root_test, true);
 
     if (result_of_test != num_roots_test)
