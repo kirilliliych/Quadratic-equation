@@ -36,7 +36,7 @@ int  SolveLinearEquation        (double linear_coef, double constant_of_free_ter
 void TestIsEqualTo0             (double value, bool correct_answer, int number);
 bool IsEqualTo0                 (double value);
 
-void PrintAnswer                (int num_roots, double first_root, double second_root);
+void PrintAnswer                (int number_of_roots, double first_root, double second_root);
 
 
 void TestIsEqual                (double value_1, double value_2, bool correct_answer, int number);
@@ -69,9 +69,9 @@ int main ()
     double first_root  = 0;
     double second_root = 0;
 
-    int num_roots = SolveQuadraticEquation (a, b, c, &first_root, &second_root);
+    int number_of_roots = SolveQuadraticEquation (a, b, c, &first_root, &second_root);
 
-    PrintAnswer (num_roots, first_root, second_root);
+    PrintAnswer (number_of_roots, first_root, second_root);
     return 0;
 }
 
@@ -322,19 +322,19 @@ bool IsEqualTo0 (double value)
 
 /** @brief Prints answer.
  *
- *  @param [in] num_roots number of roots
+ *  @param [in] number_of_roots number of roots
  *  @param [in] first_root  first root
  *  @param [in] second_root second root
  *
- *  @note Number of printed roots depends of num_roots.
+ *  @note Number of printed roots depends of number_of_roots.
  */
-void PrintAnswer (int num_roots, double first_root, double second_root)
+void PrintAnswer (int number_of_roots, double first_root, double second_root)
 {
     assert (isfinite (first_root));
     assert (isfinite (second_root));
-    assert (isfinite (num_roots));
+    assert (isfinite (number_of_roots));
 
-    switch (num_roots)
+    switch (number_of_roots)
     {
         case 0:
             printf ("No solutions\n");
@@ -357,7 +357,7 @@ void PrintAnswer (int num_roots, double first_root, double second_root)
             break;
 
         default:
-            printf ("%s %d\n", "Error, unknown value of num_roots: ", num_roots);
+            printf ("%s %d\n", "Error, unknown value of number_of_roots: ", number_of_roots);
 
             break;
 
@@ -422,8 +422,8 @@ void TestSwap (double value_1, double value_2, double correct_new_value_1, doubl
 
 /** @brief Swaps two variables (numbers).
   *
-  *  @param [in] *value_1 pointer to first  double variable
-  *  @param [in] *value_2 pointer to second double variable
+  *  @param [out] *value_1 pointer to first  double variable
+  *  @param [out] *value_2 pointer to second double variable
   */
 void Swap (double *value_1, double *value_2)
 {
