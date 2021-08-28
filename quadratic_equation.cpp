@@ -392,6 +392,9 @@ void TestIsEqual (double value_1, double value_2, bool correct_answer, int numbe
   */
 bool IsEqual (double value_1, double value_2)
 {
+    assert (isfinite (value_1));
+    assert (isfinite (value_1));
+
     return fabs(value_1 - value_2) < PRECISION;
 }
 
@@ -424,6 +427,9 @@ void TestSwap (double value_1, double value_2, double correct_new_value_1, doubl
   */
 void Swap (double *value_1, double *value_2)
 {
+    assert (value_1 != nullptr);
+    assert (value_1 != nullptr);
+
     double temp = *value_1;
 
     *value_1 = *value_2;
