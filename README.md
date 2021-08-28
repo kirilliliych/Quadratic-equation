@@ -22,11 +22,12 @@ Programme shows how many roots does the equation have and shows them if there ar
 ### Brief structure
 ***
 1. _void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)_ - accepts A, B and C.
-2. _void CorrectInput (double *coefficient)_ - repeats input if there is a mistake.
+2. _void GetRightInput (double *coefficient)_ - repeats input if there is a mistake until it is correct.
 3. _int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root)_ - solves the quadratic equation __(calls SolveLinearEquation if needs)__, returns number of roots.
 4. _int SolveLinearEquation (double second_coef, double third_coef, double *ptr_first_root)_ - solves the linear equation, returns number of roots. 
 5. _bool IsCloseTo0 (double val)_ - decides whether double variable is equal to 0 with 0.001 precision.
-6. _void PrintAnswer (double first_root, double second_root, int num_roots)_ - shows an answer.     
+6. _void PrintAnswer (int num_roots, double first_root, double second_root)_ - shows an answer.
+7. _bool CompareDouble (double val1, double val2)_ - decides whether two double variables are close enough to each other to consider they are equal with 0.001 precision.     
 
 ### How can I help
 ***
