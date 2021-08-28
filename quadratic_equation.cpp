@@ -11,10 +11,10 @@
 #include <stdio.h>
 
 #define TEST_OK(number) printf ("Test %d passed\n", number)
-#define TEST_MODE_ACTIVATED
+//#define TEST_MODE_ACTIVATED
 
-const int INFINITE_NUMBER_OF_ROOTS = -1;                                                                                                                                             // signals about infinite number of roots
-const double PRECISION = 0.001;                                                                                                                                                      // a precision of comparison double to 0 and double to double
+const int INFINITE_NUMBER_OF_ROOTS = -1;                   // signals about infinite number of roots
+const double PRECISION = 0.001;                            // a precision of comparison double to 0 and double to double
 
 void TestAll                    ();
 
