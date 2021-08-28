@@ -104,7 +104,6 @@ void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
 /** @brief Tries to read coefficient until it is correctly input (a real number).
  *
  *  @param [out] *coefficient pointer to coefficient (A, B or C)
- *
  */
 void GetRightInput (double *coefficient)
 {
@@ -313,7 +312,6 @@ void TestIsEqualTo0 (double value, bool correct_answer, int number)
  *  @param [in] value value of double variable
  *
  *  @return Whether the fact that the variable is equal to 0 (with 0.001 precision) correct or not.
- *
  */
 bool IsEqualTo0 (double value)
 {
@@ -329,7 +327,6 @@ bool IsEqualTo0 (double value)
  *  @param [in] second_root second root
  *
  *  @note Number of printed roots depends of num_roots.
- *
  */
 void PrintAnswer (int num_roots, double first_root, double second_root)
 {
@@ -392,7 +389,6 @@ void TestIsEqual (double value_1, double value_2, bool correct_answer, int numbe
   *  @param [in] value_2 second double variable
   *
   *  @return Whether the fact that two variables are equal (with 0.001 precision) correct or not.
-  *
   */
 bool IsEqual (double value_1, double value_2)
 {
@@ -423,11 +419,8 @@ void TestSwap (double value_1, double value_2, double correct_new_value_1, doubl
 
 /** @brief Swaps two variables (numbers).
   *
-  *  @param [in] *value_1 pointer to first double variable
+  *  @param [in] *value_1 pointer to first  double variable
   *  @param [in] *value_2 pointer to second double variable
-  *
-  *
-  *
   */
 void Swap (double *value_1, double *value_2)
 {
