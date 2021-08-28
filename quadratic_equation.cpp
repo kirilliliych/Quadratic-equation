@@ -226,29 +226,29 @@ int SolveQuadraticEquation (double first_coef, double second_coef, double third_
 void TestSolveLinearEquation (double linear_coef, double constant_of_free_term, int correct_number_of_roots,
                               double correct_root, int number)
 {
-  assert (isfinite (linear_coef));
-  assert (isfinite (constant_of_free_term));
-  assert (isfinite (correct_root));
+    assert (isfinite (linear_coef));
+    assert (isfinite (constant_of_free_term));
+    assert (isfinite (correct_root));
 
-  double root = 0;
+    double root = 0;
 
-  int number_of_roots = SolveLinearEquation (linear_coef, constant_of_free_term, &root);
+    int number_of_roots = SolveLinearEquation (linear_coef, constant_of_free_term, &root);
 
-  if ((correct_number_of_roots != number_of_roots) ||
-     (!IsEqual (correct_root, root) && (correct_number_of_roots == 1)))
-  {
-      printf ("Test %d failed line(%d)\n"
-              "Input: B = %lg, C = %lg\n"
-              "Output: number of roots = %d, root = %lg\n"
-              "Output expected: number of roots = %d, root = %lg\n",
-              number, __LINE__, linear_coef, constant_of_free_term,
-              number_of_roots, root, correct_number_of_roots, correct_root);
-  }
+    if ((correct_number_of_roots != number_of_roots) ||
+       (!IsEqual (correct_root, root) && (correct_number_of_roots == 1)))
+    {
+        printf ("Test %d failed line(%d)\n"
+                "Input: B = %lg, C = %lg\n"
+                "Output: number of roots = %d, root = %lg\n"
+                "Output expected: number of roots = %d, root = %lg\n",
+                number, __LINE__, linear_coef, constant_of_free_term,
+                number_of_roots, root, correct_number_of_roots, correct_root);
+    }
 
-  else
-  {
-      TEST_OK(number);
-  }
+    else
+    {
+        TEST_OK(number);
+    }
 }
 
 /** @brief Solves linear equation.
