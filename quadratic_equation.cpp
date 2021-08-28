@@ -3,9 +3,10 @@
 #include <stdio.h>
 
 #define TEST_OK(number) printf ("Test %d passed\n", number);
-#define TEST_MODE_ACTIVATED -2;
-const int INFINITY_ROOTS = -1;                                                                                                                 // signals about infinite number of roots
-const double PRECISION = 0.001;                                                                                                                // a precision of comparison double to 0 and double to double
+#define TEST_MODE_ACTIVATED -3;
+const int INFINITY_ROOTS = -1;
+const double PRECISION = 0.001;                                                                                           // signals about infinite number of roots
+const int ERROR = -2;                                                                                                     // a precision of comparison double to 0 and double to double
 
 void TestAll                         ();
 
@@ -17,7 +18,7 @@ void TestSolveQuadraticEquation      (double first_coef, double second_coef, dou
 int  SolveQuadraticEquation          (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
 
 void TestSolveLinearEquation         (double second_coef, double third_coef, int correct_number_roots, double correct_root, int number);
-int  SolveLinearEquation             (double second_coef, double third_coef, double *ptr_first_root);
+int  SolveLinearEquation             (double second_coef, double third_coef, double *ptr_root);
 
 void TestIsCloseTo0                  (double val, bool correct_answer, int number);
 bool IsCloseTo0                      (double val);
@@ -26,8 +27,22 @@ void  PrintAnswer                    (int num_roots, double first_root, double s
 
 bool CompareDouble                   (double val1, double val2);
 
+/** @brief Main entry point of the program.
+ *
+ *  @return 0 if there are no errors and ERROR otherwise.
+ *
+ */
 int main ()
 {
+    // -------------------------------------------------------
+    //! @brief QuadraticEquationSolver
+    //!
+    //! @author kirilliliych (https://github.com/kirilliliych)
+    //! @file quadratic_equation.cpp
+    //! @date 2021-08-28
+    //! @copyright Copyright (c) 2021
+    // -------------------------------------------------------
+
     #ifndef TEST_MODE_ACTIVATED
         printf ("\t\t\tTesting program\n");
         TestAll ();
@@ -50,9 +65,15 @@ int main ()
 
     PrintAnswer (num_roots, first_root, second_root);
 
-    return 0;
 }
 
+/** @brief Inputs coefficients.
+ *  This is a detailed description of the RealCoeffs function.
+ *
+ *  @param [out] *first_coef  coefficient A
+ *  @param [out] *second_coef coefficient B
+ *  @param [out] *third_coef  coefficient C
+ */
 void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
 {
     assert (first_coef  != nullptr);
@@ -73,6 +94,12 @@ void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
 
 }
 
+/** @brief Tries to read coefficient until it is correctly input (a real number).
+ *  This is a detailed description of the GetRightInput function.
+ *
+ *  @param [out] *coefficient input coefficient (A,B or C)
+ *
+ */
 void GetRightInput (double *coefficient)
 {
     assert (coefficient != nullptr);
@@ -115,6 +142,20 @@ void TestSolveQuadraticEquation (double first_coef, double second_coef, double t
     }
 }
 
+/** @brief Solves quadratic equation.
+ *  This is a detailed description of the SolveQuadraticEquation function.
+ *
+ *  @param [in] first_coef  coefficient A
+ *  @param [in] second_coef coefficient B
+ *  @param [in] third_coef  coefficient C
+ *  @param [out] *ptr_first_root  first root, returns to main
+ *  @param [out] *ptr_second_root second root, returns to main
+ *
+ *  @return number of roots.
+ *
+ *  @note If there is only one root, returns only first root. If there is infinite number of roots, returns INFINITE_ROOTS.
+ *  Does not return any roots if they are absent/infinite number of them.
+ */
 int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root)
 {
     assert (isfinite (first_coef));
@@ -182,11 +223,23 @@ void TestSolveLinearEquation (double second_coef, double third_coef, int correct
   }
 }
 
-int SolveLinearEquation (double second_coef, double third_coef, double *ptr_first_root)
+/** @brief Solves linear equation.
+ *  This is a detailed description of the SolveLinearEquation function.
+ *
+ *  @param [in] second_coef coefficient B
+ *  @param [in] third_coef  coefficient C
+ *  @param [out] *ptr_root, root, returns to SolveQuadraticEquation
+ *
+ *  @return number of roots.
+ *
+ *  @note If there is infinite number of roots, returns INFINITE_ROOTS.
+ *  Does not return any roots if they are absent/infinite number of them.
+ */
+int SolveLinearEquation (double second_coef, double third_coef, double *ptr_root)
 {
     assert (isfinite (second_coef));
     assert (isfinite (third_coef));
-    assert (ptr_first_root != nullptr);
+    assert (ptr_root != nullptr);
 
     if (IsCloseTo0 (fabs (second_coef)))
     {
@@ -203,7 +256,7 @@ int SolveLinearEquation (double second_coef, double third_coef, double *ptr_firs
 
     else
     {
-        *ptr_first_root = -third_coef / second_coef;
+        *ptr_root = -third_coef / second_coef;
 
         return 1;
     }
@@ -228,6 +281,14 @@ void TestIsCloseTo0 (double val, bool correct_answer, int number)
     }
 }
 
+/** @brief Decides if double variable equal to 0 (with 0.001 precision).
+ *  There is a detailed description of the IsCloseTo0 function.
+ *
+ *  @param [in] val value of double variable
+ *
+ *  @return Whether the fact that the variable is equal to 0 (with 0.001 precision) correct or not.
+ *
+ */
 bool IsCloseTo0 (double val)
 {
     assert (isfinite (val));
@@ -235,6 +296,16 @@ bool IsCloseTo0 (double val)
     return fabs (val) < PRECISION;
 }
 
+/** @brief Prints answer.
+ *  This is a detailed description of the PrintAnswer function.
+ *
+ *  @param [in] num_roots number of roots
+ *  @param [in] first_root first root
+ *  @param [in] second_root second root
+ *
+ *  @note Number of printed roots depends of num_roots.
+ *
+ */
 void PrintAnswer (int num_roots, double first_root, double second_root)
 {
     assert (isfinite (first_root));
@@ -272,6 +343,15 @@ void PrintAnswer (int num_roots, double first_root, double second_root)
     }
 }
 
+ /** @brief Decides if two double variables are equal (with 0.001 precision).
+  *  This is a detaiiled description of the CompareDouble function.
+  *
+  *  @param [in] val1 first double variable
+  *  @param [in] val2 second double variable
+  *
+  *  @return Whether the fact that two variables are equal (with 0.001 precision) correct or not.
+  *
+  */
 bool CompareDouble (double val1, double val2)
 {
     return (val1 - val2) < PRECISION;
