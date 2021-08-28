@@ -246,7 +246,7 @@ void TestSolveLinearEquation (double second_coef, double third_coef, int correct
  *
  *  @param [in] second_coef coefficient B
  *  @param [in] third_coef  coefficient C
- *  @param [out] *ptr_root, pointer on root, returns it to SolveQuadraticEquation
+ *  @param [out] *ptr_root pointer on root, returns it to SolveQuadraticEquation
  *
  *  @return number of roots.
  *
@@ -316,7 +316,7 @@ bool IsCloseTo0 (double value)
 /** @brief Prints answer.
  *
  *  @param [in] num_roots number of roots
- *  @param [in] first_root first root
+ *  @param [in] first_root  first root
  *  @param [in] second_root second root
  *
  *  @note Number of printed roots depends of num_roots.
@@ -360,7 +360,7 @@ void PrintAnswer (int num_roots, double first_root, double second_root)
 
  /** @brief Decides if two double variables are equal (with 0.001 precision).
   *
-  *  @param [in] value_1 first double variable
+  *  @param [in] value_1 first  double variable
   *  @param [in] value_2 second double variable
   *
   *  @return Whether the fact that two variables are equal (with 0.001 precision) correct or not.
