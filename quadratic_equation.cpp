@@ -3,31 +3,37 @@
 #include <stdio.h>
 
 #define TEST_OK(number) printf ("Test %d passed\n", number);
-
+#define TEST_MODE_ACTIVATED -2;
 const int INFINITY_ROOTS = -1;                                                                                                                 // signals about infinite number of roots
 const double PRECISION = 0.001;                                                                                                                // a precision of comparison double to 0 and double to double
-const int ERROR = -2;                                                                                                                          // signals about an error in switch
+
+void TestAll                         ();
 
 void ReadCoeffs                      (double *first_coef, double *second_coef, double *third_coef);
 
-int  CorrectInput                    (double *coefficient, bool if_testing);
+void GetRightInput                   (double *coefficient);
 
-void TestSolveQuadraticEquation      ();
+void TestSolveQuadraticEquation      (double first_coef, double second_coef, double third_coef, int correct_number_roots, double correct_root_1, double correct_root_2, int number);
 int  SolveQuadraticEquation          (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root);
 
-void TestSolveLinearEquation         (double second_coef, double third_coef, double correct_root, int correct_number_roots, int number);
+void TestSolveLinearEquation         (double second_coef, double third_coef, int correct_number_roots, double correct_root, int number);
 int  SolveLinearEquation             (double second_coef, double third_coef, double *ptr_first_root);
 
-void TestIsCloseTo0                  ();
+void TestIsCloseTo0                  (double val, bool correct_answer, int number);
 bool IsCloseTo0                      (double val);
 
-void TestPrintAnswer                 ();
-int  PrintAnswer                     (int num_roots, double first_root, double second_root, bool if_testing);
+void  PrintAnswer                    (int num_roots, double first_root, double second_root);
 
 bool CompareDouble                   (double val1, double val2);
 
 int main ()
 {
+    #ifndef TEST_MODE_ACTIVATED
+        printf ("\t\t\tTesting program\n");
+        TestAll ();
+        return 0;
+    #endif
+
     printf ("\t\t\t///// QuadraticEquationSolver /////\n");
     printf ("\t\t\t\t(c) kirilliliych, 2021\n\n");
 
@@ -42,7 +48,7 @@ int main ()
 
     int num_roots = SolveQuadraticEquation (a, b, c, &first_root, &second_root);
 
-    PrintAnswer (num_roots, first_root, second_root, false);
+    PrintAnswer (num_roots, first_root, second_root);
 
     return 0;
 }
@@ -55,19 +61,19 @@ void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
 
     printf ("Enter coefficient A in Ax^2+Bx+C formula: ");
 
-    CorrectInput (first_coef,  false);
+    GetRightInput (first_coef);
 
     printf ("Enter coefficient B in Ax^2+Bx+C formula: ");
 
-    CorrectInput (second_coef, false);
+    GetRightInput (second_coef);
 
     printf ("Enter coefficient C in Ax^2+Bx+C formula: ");
 
-    CorrectInput (third_coef,  false);
+    GetRightInput (third_coef);
 
 }
 
-int CorrectInput (double *coefficient, bool if_testing)
+void GetRightInput (double *coefficient)
 {
     assert (coefficient != nullptr);
 
@@ -77,16 +83,37 @@ int CorrectInput (double *coefficient, bool if_testing)
 
         while (getchar () != '\n');
 
-        if (if_testing)
-        {
-            return 0;
-        }
-
     }
-    return 1;
 }
 
+void TestSolveQuadraticEquation (double first_coef, double second_coef, double third_coef, int correct_number_roots, double correct_root_1, double correct_root_2, int number)
+{
+    if (correct_root_1 > correct_root_2)
+    {
+        double temp = correct_root_1;
 
+        correct_root_1 = correct_root_2;
+        correct_root_2 = temp;
+    }
+
+    double root_1 = 0;
+    double root_2 = 0;
+    int number_roots = SolveQuadraticEquation (first_coef, second_coef, third_coef, &root_1, &root_2);
+
+    if (!CompareDouble (correct_number_roots, number_roots) || ((!CompareDouble (correct_root_1, root_1) || !CompareDouble (correct_root_2, root_2)) && ((correct_number_roots != INFINITY_ROOTS) || (correct_number_roots != 0))))
+    {
+        printf ("Test %d failed line(%d)\n"
+                "Input: A = %lg, B = %lg, C = %lg\n"
+                "Output: number of roots = %d, root 1 = %lg, root 2 = %lg\n"
+                "Output expected: number of roots = %d, root 1 = %lg, root 2 = %lg\n",
+                number, __LINE__, first_coef, second_coef, third_coef, number_roots, root_1, root_2, correct_number_roots, correct_root_1, correct_root_2);
+    }
+
+    else
+    {
+        TEST_OK(number);
+    }
+}
 
 int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef, double *ptr_first_root, double *ptr_second_root)
 {
@@ -130,7 +157,7 @@ int SolveQuadraticEquation (double first_coef, double second_coef, double third_
     }
 }
 
-void TestSolveLinearEquation (double second_coef, double third_coef, double correct_root, int correct_number_roots, int number)
+void TestSolveLinearEquation (double second_coef, double third_coef, int correct_number_roots, double correct_root, int number)
 {
   assert (isfinite (second_coef));
   assert (isfinite (third_coef));
@@ -140,12 +167,13 @@ void TestSolveLinearEquation (double second_coef, double third_coef, double corr
 
   int number_roots = SolveLinearEquation (second_coef, third_coef, &root);
 
-  if ((correct_number_roots != number_roots) || (correct_root != root))
+  if (!CompareDouble (correct_number_roots, number_roots) || (!CompareDouble (correct_root, root) && (correct_number_roots != INFINITY_ROOTS) && (correct_number_roots != 0)))
   {
-      printf ("Test % failed line(%d)\n"
+      printf ("Test %d failed line(%d)\n"
               "Input: B = %lg, C = %lg\n"
               "Output: number of roots = %d, root = %lg\n"
-              "Output expected: number of roots = %d, root = %lg\n", number, __LINE__, second_coef, third_coef, number_roots, root, correct_number_roots, correct_root);
+              "Output expected: number of roots = %d, root = %lg\n",
+              number, __LINE__, second_coef, third_coef, number_roots, root, correct_number_roots, correct_root);
   }
 
   else
@@ -181,20 +209,23 @@ int SolveLinearEquation (double second_coef, double third_coef, double *ptr_firs
     }
 }
 
-void TestIsCloseTo0 ()
+void TestIsCloseTo0 (double val, bool correct_answer, int number)
 {
-    printf ("Testing function IsCloseTo0:\n\n");
+    bool answer = IsCloseTo0 (val);
 
-    int number = 1;
-    double test = 0.000999;
+    if (correct_answer != answer)
+    {
+        printf ("Test %d failed line(%d)\n"
+                "Input: value = %lg\n"
+                "Output: %d\n"
+                "Output expected: %d\n",
+                number, __LINE__, val, answer, correct_answer);
+    }
 
-
-    number++;
-
-    test = 0.001;
-
-
-    printf ("\n");
+    else
+    {
+        TEST_OK(number);
+    }
 }
 
 bool IsCloseTo0 (double val)
@@ -204,9 +235,7 @@ bool IsCloseTo0 (double val)
     return fabs (val) < PRECISION;
 }
 
-
-
-int PrintAnswer (int num_roots, double first_root, double second_root, bool if_testing)
+void PrintAnswer (int num_roots, double first_root, double second_root)
 {
     assert (isfinite (first_root));
     assert (isfinite (second_root));
@@ -216,50 +245,60 @@ int PrintAnswer (int num_roots, double first_root, double second_root, bool if_t
     switch (num_roots)
     {
         case 0:
-            if (!if_testing)
-            {
-                printf ("No solutions\n");
-            }
+            printf ("No solutions\n");
 
-            return 0;
+            break;
 
         case 1:
-            if (!if_testing)
-            {
-                printf ("%s %lg %s", "The only root: ", first_root, "\n");
-            }
+            printf ("%s %lg %s", "The only root: ", first_root, "\n");
 
-            return 1;
+            break;
 
         case 2:
-            if (!if_testing)
-            {
-                printf ("%s %lg %s %lg\n", "First root: ", first_root, "Second root: ", second_root);
-            }
+            printf ("%s %lg %s %lg\n", "First root: ", first_root, "Second root: ", second_root);
 
-            return 2;
+            break;
 
         case INFINITY_ROOTS:
-            if (!if_testing)
-            {
-                printf ("Infinity number of roots\n");
-            }
+            printf ("Infinity number of roots\n");
 
-            return INFINITY_ROOTS;
+            break;
 
         default:
-            if (!if_testing)
-            {
-                printf ("%s %d\n", "Error, unknown value of num_roots: ", num_roots);
-            }
+            printf ("%s %d\n", "Error, unknown value of num_roots: ", num_roots);
 
-            return ERROR;
+            break;
 
     }
 }
 
 bool CompareDouble (double val1, double val2)
 {
-    return (fabs (val1 - val2)) < PRECISION;
+    return (val1 - val2) < PRECISION;
+}
+
+void TestAll ()
+{
+    printf ("Testing function SolveQuadraticEquation\n\n");
+
+    TestSolveQuadraticEquation (0, 0, 0, INFINITY_ROOTS, 0, 0, 1);
+    TestSolveQuadraticEquation (0, 0, 1, 0, 0, 0, 2);
+    TestSolveQuadraticEquation (0, 1, 0, 1, 0, 0, 3);
+    TestSolveQuadraticEquation (0, 1, 4, 1, -4, 0, 4);
+    TestSolveQuadraticEquation (1, 2, 2, 0, 0, 0, 5);
+    TestSolveQuadraticEquation (1, 2, 1, 1, -1, 0, 6);
+    TestSolveQuadraticEquation (1, -4, 3, 2, 3, 1, 7);
+
+    printf ("\nTesting function SolveLinearEquation\n\n");
+
+    TestSolveLinearEquation (0, 0, INFINITY_ROOTS, 0, 1);
+    TestSolveLinearEquation (0, 1, 0, 0, 2);
+    TestSolveLinearEquation (1, 3, 1, -3, 3);
+
+    printf ("\nTesting function TestIsCloseTo0\n\n");
+
+    TestIsCloseTo0 (0.001, 0, 1);
+    TestIsCloseTo0 (0.0009, 1, 2);
+    TestIsCloseTo0 (1.68, 0, 3  );
 }
 
