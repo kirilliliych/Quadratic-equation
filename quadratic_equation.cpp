@@ -121,6 +121,12 @@ void GetRightInput (double *coefficient)
 void TestSolveQuadraticEquation (double first_coef, double second_coef, double third_coef, int correct_number_of_roots,
                                  double correct_root_1, double correct_root_2, int number)
 {
+    assert (isfinite (first_coef));
+    assert (isfinite (second_coef));
+    assert (isfinite (third_coef));
+    assert (isfinite (correct_root_1));
+    assert (isfinite (correct_root_2));
+
     if (correct_root_1 > correct_root_2)
     {
         Swap (&correct_root_1, &correct_root_2);
@@ -290,6 +296,8 @@ int SolveLinearEquation (double linear_coef, double constant_of_free_term, doubl
 
 void TestIsEqualTo0 (double value, bool correct_answer, int number)
 {
+    assert (isfinite (value));
+
     bool answer = IsEqualTo0 (value);
 
     if (correct_answer != answer)
@@ -366,6 +374,9 @@ void PrintAnswer (int number_of_roots, double first_root, double second_root)
 
 void TestIsEqual (double value_1, double value_2, bool correct_answer, int number)
 {
+    assert (isfinite (value_1));
+    assert (isfinite (value_2));
+
     bool answer = IsEqual (value_1, value_2);
 
     if (correct_answer != answer)
@@ -400,6 +411,11 @@ bool IsEqual (double value_1, double value_2)
 
 void TestSwap (double value_1, double value_2, double correct_new_value_1, double correct_new_value_2, int number)
 {
+    assert (isfinite (value_1));
+    assert (isfinite (value_2));
+    assert (isfinite (correct_new_value_1));
+    assert (isfinite (correct_new_value_2));
+
     double previous_value_1 = value_1;
     double previous_value_2 = value_2;
 
@@ -420,7 +436,7 @@ void TestSwap (double value_1, double value_2, double correct_new_value_1, doubl
     }
 }
 
-/** @brief Swaps two variables (numbers).
+/**  @brief Swaps two variables (numbers).
   *
   *  @param [out] *value_1 pointer to first  double variable
   *  @param [out] *value_2 pointer to second double variable
