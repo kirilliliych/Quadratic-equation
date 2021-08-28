@@ -11,7 +11,7 @@
 #include <stdio.h>
 
 #define TEST_OK(number) printf ("Test %d passed\n", number)
-//#define TEST_MODE_ACTIVATED
+#define TEST_MODE_ACTIVATED
 
 const int INFINITE_NUMBER_OF_ROOTS = -1;                                                                                                                                             // signals about infinite number of roots
 const double PRECISION = 0.001;                                                                                                                                                      // a precision of comparison double to 0 and double to double
@@ -396,7 +396,7 @@ void TestIsEqual (double value_1, double value_2, bool correct_answer, int numbe
   */
 bool IsEqual (double value_1, double value_2)
 {
-    return (value_1 - value_2) < PRECISION;
+    return fabs(value_1 - value_2) < PRECISION;
 }
 
 void TestSwap (double value_1, double value_2, double correct_new_value_1, double correct_new_value_2, int number)
@@ -441,13 +441,14 @@ void TestAll ()
 {
     printf ("Testing function SolveQuadraticEquation\n\n");
 
-    TestSolveQuadraticEquation (0,  0, 0, INFINITE_NUMBER_OF_ROOTS, 0, 0, 1);
-    TestSolveQuadraticEquation (0,  0, 1, 0,  0, 0, 2);
-    TestSolveQuadraticEquation (0,  1, 0, 1,  0, 0, 3);
-    TestSolveQuadraticEquation (0,  1, 4, 1, -4, 0, 4);
-    TestSolveQuadraticEquation (1,  2, 2, 0,  0, 0, 5);
-    TestSolveQuadraticEquation (1,  2, 1, 1, -1, 0, 6);
-    TestSolveQuadraticEquation (1, -4, 3, 2,  3, 1, 7);
+    TestSolveQuadraticEquation ( 0,  0,  0, INFINITE_NUMBER_OF_ROOTS, 0, 0, 1);
+    TestSolveQuadraticEquation ( 0,  0,  1, 0,  0, 0, 2);
+    TestSolveQuadraticEquation ( 0,  1,  0, 1,  0, 0, 3);
+    TestSolveQuadraticEquation ( 0,  1,  4, 1, -4, 0, 4);
+    TestSolveQuadraticEquation ( 1,  2,  2, 0,  0, 0, 5);
+    TestSolveQuadraticEquation ( 1,  2,  1, 1, -1, 0, 6);
+    TestSolveQuadraticEquation ( 1, -4,  3, 2,  3, 1, 7);
+    TestSolveQuadraticEquation (-1,  2, -1, 1,  1, 0, 8);
 
     printf ("\nTesting function SolveLinearEquation\n\n");
 
@@ -465,6 +466,7 @@ void TestAll ()
 
     TestIsEqual (0.69, 0.69001, 1, 1);
     TestIsEqual (10, 1, 0, 2);
+    TestIsEqual (1, 10, 0, 3);
 
     printf ("\nTesting function Swap\n\n");
 
