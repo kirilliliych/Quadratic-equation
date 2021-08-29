@@ -1,4 +1,3 @@
-
 void TestSolveQuadraticEquation (struct TestDataForQuadraticEquation test)
 {
     assert (isfinite (test.first_coef));

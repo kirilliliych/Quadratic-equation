@@ -46,8 +46,6 @@ int SolveQuadraticEquation      (double first_coef,
                                  double *ptr_first_root,
                                  double *ptr_second_root);
 
-
-
 /** @brief Solves linear equation.
  *
  * @param [in]  linear_coef coefficient B
@@ -63,11 +61,9 @@ int SolveLinearEquation  (double linear_coef,
                           double constant_of_free_term,
                           double *ptr_root);
 
-
-
 /** @brief Decides if double variable is equal to 0 (with 0.001 precision).
  *
- * @param [in] value value of double variable
+ * @param [in] value double variable
  *
  * @return Whether the fact that the variable is equal to 0 (with 0.001 precision) correct or not.
  */
@@ -76,7 +72,7 @@ bool IsEqualTo0 (double value);
 /** @brief Prints answer.
  *
  * @param [in] number_of_roots number of roots
- * @param [in] first_root  first  root of quadratic equation
+ * @param [in] first_root  first root of quadratic equation
  * @param [in] second_root second root of quadratic equation
  *
  * @note Number of printed roots depends of number_of_roots.
@@ -84,8 +80,6 @@ bool IsEqualTo0 (double value);
 void PrintAnswer (int number_of_roots,
                   double first_root,
                   double second_root);
-
-
 
 /** @brief Decides if two double variables are equal (with 0.001 precision).
  *
@@ -96,8 +90,6 @@ void PrintAnswer (int number_of_roots,
  */
 bool IsEqual (double value_1,
               double value_2);
-
-
 
 /** @brief Swaps two variables (numbers).
  *

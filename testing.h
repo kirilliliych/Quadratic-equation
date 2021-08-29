@@ -1,4 +1,3 @@
-
 /** @brief Contains data for testing SolveQuadraticEquation.
  *
  * @param first_coef  coefficient A

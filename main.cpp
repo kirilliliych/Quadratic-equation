@@ -1,7 +1,7 @@
 // -------------------------------------------------------
+//! @file quadratic_equation.cpp
 //! @brief QuadraticEquationSolver
 //! @author kirilliliych (https://github.com/kirilliliych)
-//! @file quadratic_equation.cpp
 //! @date 2021-08-28
 //! @copyright Copyright (c) 2021
 // -------------------------------------------------------
