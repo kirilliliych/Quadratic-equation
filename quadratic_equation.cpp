@@ -4,6 +4,9 @@ void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
     assert (first_coef  != nullptr);
     assert (second_coef != nullptr);
     assert (third_coef  != nullptr);
+    assert (isfinite (*first_coef));
+    assert (isfinite (*second_coef));
+    assert (isfinite (*third_coef));
 
     printf ("Enter coefficient A in Ax^2+Bx+C formula: ");
 
@@ -116,7 +119,7 @@ void PrintAnswer (int number_of_roots, double first_root, double second_root)
             break;
 
         case 2:
-            printf ("%s %lg %s %lg\n", "First root: ", first_root, "Second root: ", second_root);
+            printf ("%s %lg %s %lg\n", "First root: ", first_root, "\tSecond root: ", second_root);
             break;
 
         case INFINITE_ROOTS_NUM:
