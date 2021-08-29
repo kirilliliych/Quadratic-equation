@@ -6,7 +6,7 @@
 //! @copyright Copyright (c) 2021
 // -------------------------------------------------------
 
-#include "quadratic_equation_announcement.h"
+#include "quadratic_equation.h"
 
 int main ()
 {
@@ -33,6 +33,7 @@ int main ()
     int number_of_roots = SolveQuadraticEquation (a, b, c, &first_root, &second_root);
 
     PrintAnswer (number_of_roots, first_root, second_root);
+
     return 0;
 }
 
@@ -70,7 +71,7 @@ void GetRightInput (double *coefficient)
 }
 
 void TestSolveQuadraticEquation (double first_coef, double second_coef, double third_coef, int correct_number_of_roots,
-                                 double correct_root_1, double correct_root_2, int number)
+                                 double correct_root_1, double correct_root_2, int number_of_test)
 {
     assert (isfinite (first_coef));
     assert (isfinite (second_coef));
@@ -117,13 +118,13 @@ void TestSolveQuadraticEquation (double first_coef, double second_coef, double t
                 "Input: A = %lg, B = %lg, C = %lg\n"
                 "Output: number of roots = %d, root 1 = %lg, root 2 = %lg\n"
                 "Output expected: number of roots = %d, root 1 = %lg, root 2 = %lg\n",
-                number, __LINE__, first_coef, second_coef, third_coef, number_of_roots,
+                number_of_test, __LINE__, first_coef, second_coef, third_coef, number_of_roots,
                 root_1, root_2, correct_number_of_roots, correct_root_1, correct_root_2);
     }
 
     else
     {
-        TEST_OK(number);
+        TEST_OK(number_of_test);
     }
 }
 
@@ -167,7 +168,7 @@ int SolveQuadraticEquation (double first_coef, double second_coef, double third_
 }
 
 void TestSolveLinearEquation (double linear_coef, double constant_of_free_term, int correct_number_of_roots,
-                              double correct_root, int number)
+                              double correct_root, int number_of_test)
 {
     assert (isfinite (linear_coef));
     assert (isfinite (constant_of_free_term));
@@ -185,13 +186,13 @@ void TestSolveLinearEquation (double linear_coef, double constant_of_free_term, 
                 "Input: B = %lg, C = %lg\n"
                 "Output: number of roots = %d, root = %lg\n"
                 "Output expected: number of roots = %d, root = %lg\n",
-                number, __LINE__, linear_coef, constant_of_free_term,
+                number_of_test, __LINE__, linear_coef, constant_of_free_term,
                 number_of_roots, root, correct_number_of_roots, correct_root);
     }
 
     else
     {
-        TEST_OK(number);
+        TEST_OK(number_of_test);
     }
 }
 
@@ -222,7 +223,7 @@ int SolveLinearEquation (double linear_coef, double constant_of_free_term, doubl
     }
 }
 
-void TestIsEqualTo0 (double value, bool correct_answer, int number)
+void TestIsEqualTo0 (double value, bool correct_answer, int number_of_test)
 {
     assert (isfinite (value));
 
@@ -234,12 +235,12 @@ void TestIsEqualTo0 (double value, bool correct_answer, int number)
                 "Input: value = %lg\n"
                 "Output: %d\n"
                 "Output expected: %d\n",
-                number, __LINE__, value, answer, correct_answer);
+                number_of_test, __LINE__, value, answer, correct_answer);
     }
 
     else
     {
-        TEST_OK(number);
+        TEST_OK(number_of_test);
     }
 }
 
@@ -285,7 +286,7 @@ void PrintAnswer (int number_of_roots, double first_root, double second_root)
     }
 }
 
-void TestIsEqual (double value_1, double value_2, bool correct_answer, int number)
+void TestIsEqual (double value_1, double value_2, bool correct_answer, int number_of_test)
 {
     assert (isfinite (value_1));
     assert (isfinite (value_2));
@@ -298,12 +299,12 @@ void TestIsEqual (double value_1, double value_2, bool correct_answer, int numbe
                 "Input: value_1 = %lg, value_2 = %lg\n"
                 "Output: %d\n"
                 "Output expected: %d\n",
-                number, __LINE__, value_1, value_2, answer, correct_answer);
+                number_of_test, __LINE__, value_1, value_2, answer, correct_answer);
     }
 
     else
     {
-        TEST_OK(number);
+        TEST_OK(number_of_test);
     }
 }
 
@@ -315,7 +316,7 @@ bool IsEqual (double value_1, double value_2)
     return fabs(value_1 - value_2) < PRECISION;
 }
 
-void TestSwap (double value_1, double value_2, double correct_new_value_1, double correct_new_value_2, int number)
+void TestSwap (double value_1, double value_2, double correct_new_value_1, double correct_new_value_2, int number_of_test)
 {
     assert (isfinite (value_1));
     assert (isfinite (value_2));
@@ -333,12 +334,12 @@ void TestSwap (double value_1, double value_2, double correct_new_value_1, doubl
                 "Input: value_1 = %lg, value_2 = %lg\n"
                 "Output: new value_1 = %lg, new value_2 = %lg\n"
                 "Output expected: new value_1 = %lg, new value_2 = %lg\n",
-                number, __LINE__, previous_value_1, previous_value_2, value_1, value_2, correct_new_value_1, correct_new_value_2);
+                number_of_test, __LINE__, previous_value_1, previous_value_2, value_1, value_2, correct_new_value_1, correct_new_value_2);
     }
 
     else
     {
-        TEST_OK(number);
+        TEST_OK(number_of_test);
     }
 }
 
@@ -355,38 +356,94 @@ void Swap (double *value_1, double *value_2)
 
 void TestAll ()
 {
+    int number_of_test = 1;
+
     printf ("Testing function SolveQuadraticEquation\n\n");
 
-    TestSolveQuadraticEquation ( 0,  0,  0, INFINITE_NUMBER_OF_ROOTS, 0, 0, 1);
-    TestSolveQuadraticEquation ( 0,  0,  1, 0,  0, 0, 2);
-    TestSolveQuadraticEquation ( 0,  1,  0, 1,  0, 0, 3);
-    TestSolveQuadraticEquation ( 0,  1,  4, 1, -4, 0, 4);
-    TestSolveQuadraticEquation ( 1,  2,  2, 0,  0, 0, 5);
-    TestSolveQuadraticEquation ( 1,  2,  1, 1, -1, 0, 6);
-    TestSolveQuadraticEquation ( 1, -4,  3, 2,  3, 1, 7);
-    TestSolveQuadraticEquation (-1,  2, -1, 1,  1, 0, 8);
+    struct TestDataForQuadraticEquation test_solve_quadratic_equation[9] = {{ 0,  0,  0, INFINITE_NUMBER_OF_ROOTS, 0, 0, number_of_test++},
+                                                                            { 0,  0,  1, 0,  0, 0, number_of_test++},
+                                                                            { 0,  1,  0, 1,  0, 0, number_of_test++},
+                                                                            { 0,  1,  0, 1,  0, 0, number_of_test++},
+                                                                            { 0,  1,  4, 1, -4, 0, number_of_test++},
+                                                                            { 1,  2,  2, 0,  0, 0, number_of_test++},
+                                                                            { 1,  2,  1, 1, -1, 0, number_of_test++},
+                                                                            { 1, -4,  3, 2,  3, 1, number_of_test++},
+                                                                            {-1,  2, -1, 1,  1, 0, number_of_test++}};
+
+    for (int i = 0; i < number_of_test - 1; ++i)
+    {
+        TestSolveQuadraticEquation (test_solve_quadratic_equation[i].first_coef,
+                                    test_solve_quadratic_equation[i].second_coef,
+                                    test_solve_quadratic_equation[i].third_coef,
+                                    test_solve_quadratic_equation[i].correct_number_of_roots,
+                                    test_solve_quadratic_equation[i].correct_root_1,
+                                    test_solve_quadratic_equation[i].correct_root_2,
+                                    test_solve_quadratic_equation[i].number_of_test);
+    }
+
+    number_of_test = 1;
 
     printf ("\nTesting function SolveLinearEquation\n\n");
 
-    TestSolveLinearEquation (0, 0, INFINITE_NUMBER_OF_ROOTS, 0, 1);
-    TestSolveLinearEquation (0, 1, 0,  0, 2);
-    TestSolveLinearEquation (1, 3, 1, -3, 3);
+    struct TestDataForLinearEquation test_solve_linear_equation[4] = {{ 0, 0, INFINITE_NUMBER_OF_ROOTS, 0, number_of_test++},
+                                                                      { 0, 1, 0,  0, number_of_test++},
+                                                                      { 1, 3, 1, -3, number_of_test++},
+                                                                      {-2, 4, 1,  2, number_of_test++}};
+
+    for (int i = 0; i < number_of_test - 1; ++i)
+    {
+        TestSolveLinearEquation (test_solve_linear_equation[i].linear_coef,
+                                 test_solve_linear_equation[i].constant_of_free_term,
+                                 test_solve_linear_equation[i].correct_number_of_roots,
+                                 test_solve_linear_equation[i].correct_root,
+                                 test_solve_linear_equation[i].number_of_test);
+    }
+
+    number_of_test = 1;
 
     printf ("\nTesting function IsEqualTo0\n\n");
 
-    TestIsEqualTo0 (0.001,  0, 1);
-    TestIsEqualTo0 (0.0009, 1, 2);
-    TestIsEqualTo0 (1.68,   0, 3);
+    struct TestDataForIsEqualTo0 tests_is_equal_to_0[3] = {{ 0.001,  0, number_of_test++},
+                                                           {-0.0009, 1, number_of_test++},
+                                                           {1.68,    0, number_of_test++}};
+
+    for (int i = 0; i < number_of_test - 1; ++i)
+    {
+        TestIsEqualTo0 (tests_is_equal_to_0[i].value,
+                        tests_is_equal_to_0[i].correct_answer,
+                        tests_is_equal_to_0[i].number_of_test);
+    }
+
+    number_of_test = 1;
 
     printf ("\nTesting function IsEqual\n\n");
 
-    TestIsEqual (0.69, 0.69001, 1, 1);
-    TestIsEqual (10, 1, 0, 2);
-    TestIsEqual (1, 10, 0, 3);
+    struct TestDataForIsEqual tests_is_equal[3] = {{0.69, 0.69001, 1, number_of_test++},
+                                                   { -10,       1, 0, number_of_test++},
+                                                   {   1,      22, 0, number_of_test++}};
+
+    for (int i = 0; i < number_of_test - 1; ++i)
+    {
+        TestIsEqual (tests_is_equal[i].value_1,
+                     tests_is_equal[i].value_2,
+                     tests_is_equal[i].correct_answer,
+                     tests_is_equal[i].number_of_test);
+    }
+
+    number_of_test = 1;
 
     printf ("\nTesting function Swap\n\n");
 
-    TestSwap (3.14, 2.718, 2.718, 3.14, 1);
-    TestSwap (2.66, 3.512, 3.512, 2.66, 2);
+    struct TestDataForSwap tests_swap[2] = {{3.14, 2.718, 2.718, 3.14, number_of_test++},
+                                            {2.66, 3.512, 3.512, 2.66, number_of_test++}};
+
+    for (int i = 0; i < number_of_test - 1; ++i)
+    {
+       TestSwap (tests_swap[i].value_1,
+                 tests_swap[i].value_2,
+                 tests_swap[i].correct_value_1,
+                 tests_swap[i].correct_value_2,
+                 tests_swap[i].number_of_test);
+    }
 }
 
