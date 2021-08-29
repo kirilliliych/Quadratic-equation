@@ -1,5 +1,4 @@
 
-// TestSolve (struct Test test)
 void TestSolveQuadraticEquation (struct TestDataForQuadraticEquation test)
 {
     assert (isfinite (test.first_coef));
@@ -187,9 +186,9 @@ void TestAll ()
 
     printf ("\nTesting function IsEqualTo0\n\n");
 
-    struct TestDataForIsEqualTo0 test_is_equal_to_0[] = {{ 0.001,  0, number_of_test++},
+    struct TestDataForIsEqualTo0 test_is_equal_to_0[] = {{  0.001, 0, number_of_test++},
                                                          {-0.0009, 1, number_of_test++},
-                                                         {1.68,    0, number_of_test++}};
+                                                         {   1.68, 0, number_of_test++}};
 
     for (int i = 0; i < number_of_test - 1; ++i)
     {

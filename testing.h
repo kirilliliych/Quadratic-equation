@@ -39,7 +39,7 @@ struct TestDataForLinearEquation
 
 /** @brief Contains data for testing IsEqualTo0.
  *
- * @param value double variable being checked
+ * @param value double   variable being checked
  * @param correct_answer correct answer (true or false)
  * @param number_of_test number of test
  */

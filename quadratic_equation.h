@@ -1,7 +1,3 @@
-//#ifndef quadratic_equation.h_INCLUDED
-
-//#define quadratic_equation.h_INCLUDED
-
 #include <assert.h>
 #include <math.h>
 #include <stdio.h>
@@ -10,7 +6,7 @@
 //#define TEST_MODE_ACTIVATED
 
  const int INFINITE_ROOTS_NUM = -1;                   // signals about infinite number of roots
- const double PRECISION = 0.001;                            // a precision of comparison of double to 0 and double to double
+ const double PRECISION = 0.001;                      // a precision of comparison of double to 0 and double to double
 
 void TestAll ();
 
@@ -44,7 +40,7 @@ void EquationCoefGetRightInput (double *coefficient);
  * If there is only one root, puts it to *ptr_first_root.
  * Does not put any roots to *ptr_first_root and *ptr_second_root if roots are absent/infinite number of them.
  */
-int  SolveQuadraticEquation     (double first_coef,
+int SolveQuadraticEquation      (double first_coef,
                                  double second_coef,
                                  double third_coef,
                                  double *ptr_first_root,
@@ -63,7 +59,7 @@ int  SolveQuadraticEquation     (double first_coef,
  * @note If there is infinite number of roots, returns INFINITE_ROOTS_NUM.
  * Does not put a to *ptr_root if it is absent/infinite number of them.
  */
-int  SolveLinearEquation (double linear_coef,
+int SolveLinearEquation  (double linear_coef,
                           double constant_of_free_term,
                           double *ptr_root);
 
@@ -110,5 +106,3 @@ bool IsEqual (double value_1,
  */
 void Swap                       (double *value_1,
                                  double *value_2);
-
-//#endif
