@@ -1,8 +1,8 @@
 // -------------------------------------------------------
-//! @file quadratic_equation.cpp
-//! @brief QuadraticEquationSolver
+//! @file main.cpp
+//! @brief Main function.
 //! @author kirilliliych (https://github.com/kirilliliych)
-//! @date 2021-08-28
+//! @date 2021-08-29
 //! @copyright Copyright (c) 2021
 // -------------------------------------------------------
 

@@ -1,4 +1,14 @@
-void ReadCoeffs (double *first_coef, double *second_coef, double *third_coef)
+// -------------------------------------------------------
+//! @file quadratic_equation.cpp
+//! @brief Realization of non-testing functions.
+//! @author kirilliliych (https://github.com/kirilliliych)
+//! @date 2021-08-29
+//! @copyright Copyright (c) 2021
+// -------------------------------------------------------
+
+void ReadCoeffs (double *first_coef,
+                 double *second_coef,
+                 double *third_coef)
 {
     assert (first_coef  != nullptr);
     assert (second_coef != nullptr);
@@ -32,8 +42,11 @@ void EquationCoefGetRightInput (double *coefficient)
     }
 }
 
-int SolveQuadraticEquation (double first_coef, double second_coef, double third_coef,
-                            double *ptr_first_root, double *ptr_second_root)
+int SolveQuadraticEquation (double first_coef,
+                            double second_coef,
+                            double third_coef,
+                            double *ptr_first_root,
+                            double *ptr_second_root)
 {
     assert (isfinite (first_coef));
     assert (isfinite (second_coef));
@@ -69,7 +82,9 @@ int SolveQuadraticEquation (double first_coef, double second_coef, double third_
     return 0;
 }
 
-int SolveLinearEquation (double linear_coef, double constant_of_free_term, double *ptr_root)
+int SolveLinearEquation (double linear_coef,
+                         double constant_of_free_term,
+                         double *ptr_root)
 {
     assert (isfinite (linear_coef));
     assert (isfinite (constant_of_free_term));
