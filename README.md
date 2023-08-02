@@ -37,7 +37,7 @@ I explicitly welcome any outside contributors. Use my mail: _ilichev.kv@phystech
 __A strong request__:
 - Ask before making significant changes
 - Do not break the codestyle
-* Do not destruct previous functionality with additions
+- Do not destruct previous functionality with additions
 
 ***
 ## Where to ask questions
