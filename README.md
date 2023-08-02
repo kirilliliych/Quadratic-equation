@@ -15,7 +15,7 @@ Now you can get right answer without any troubles.
 ## How to work with
 This programme accepts three variables:  A, B and C from Ax^2 + Bx + C = 0, so you should enter A, B and C.
 Just follow the instructions appearing on the screen and you will benefit.  
-**Arguments' type is double! Do not try to initialize them with symbol, string, etc. It will not work!**
+__Arguments' type is double! Do not try to initialize them with symbol, string, etc. It will not work!__
 If you are mistaken, a message will remember you to enter number.
 
 Programme shows how many roots does the equation have and shows them if there are any / not an infinity of them.
@@ -35,8 +35,8 @@ Programme shows how many roots does the equation have and shows them if there ar
 ## How can I help
 I explicitly welcome any outside contributors. Use my mail: _ilichev.kv@phystech.edu_.
 __A strong request__:
-* Ask before making significant changes
-* Do not break the codestyle
+- Ask before making significant changes
+- Do not break the codestyle
 * Do not destruct previous functionality with additions
 
 ***
