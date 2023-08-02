@@ -3,7 +3,7 @@
 The program is free-to-use for all kinds of developers.
 ### What does the project do
 ***
-Solves quadratic equation of following form: Ax^{2} + Bx + C = 0. __Note: A coefficient can be zero, this case is also processed!__
+Solves quadratic equation of following form: Ax^2 + Bx + C = 0. __Note: A coefficient can be zero, this case is also processed!__
 
 ***
 ## Why is the project useful
@@ -13,7 +13,7 @@ Now you can get right answer without any troubles.
 
 ***
 ## How to work with
-This program accepts three variables:  A, B and C from Ax^{2} + Bx + C = 0, so you should enter A, B and C.
+This program accepts three variables:  A, B and C from Ax^2 + Bx + C = 0, so you should enter A, B and C.
 Just follow the instructions appearing on the screen and you will benefit.  
 __Arguments' type is double! Do not try to initialize them with symbol, string, etc. It will not work!__
 If you are mistaken, a message will remember you to enter number.
